@@ -1,0 +1,20 @@
+/* TEAM */
+
+Robin Dumont-Chaponet.
+Role: Developper
+Mail: robin@dumontchapo.net
+Site: robin.dumontchapo.net
+Location: France.
+
+
+/* THANKS */
+
+Name: My trusty pen & paper
+
+
+/* SITE */
+
+Last update: 
+Standards: HTML5.1, CSS3, JS, PHP7.1
+Components: smooth-scroll by Chris Ferdinandi
+Software: Coda 2 by Panic.inc, GitHub Desktop, StarUML, Rested, Sequel Pro, Dash, Affinity Photo, Affinity Designer, macOS.

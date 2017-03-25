@@ -1,0 +1,15 @@
+#content {
+	margin-right: 180px;
+	margin-bottom: 0;
+	text-align: center;
+	color: lightgrey;
+}
+
+#content h1 {
+	font-size: 404px;
+	font-weight: bold;
+	line-height: 1;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}

@@ -1,0 +1,18 @@
+{
+	"name": "firstStone",
+	"description": "",
+	"type": "project",
+	"authors": [],
+	"require": {
+		"php": "^7.0",
+		"transitive/project":">=1.0 <2.0"
+	},
+	"scripts": {
+		"setup": [
+			"Transitive\\Core\\Install\\ScriptHandler::setup",
+			"Transitive\\Project\\Install\\ScriptHandler::setup",
+			"composer install -o --quiet"
+		],
+		"post-install-cmd": "@setup"
+	}
+}
