@@ -1,4 +1,4 @@
-#firstStone
+# firstStone
 
 Base Transitive project I usually start with when I do a new web project.
 It's really just some basic styles, scripts, presenters, misc. files, directory structure around a fresh install of Transitive-project.
