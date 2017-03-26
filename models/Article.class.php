@@ -47,15 +47,15 @@ class Article extends Dated
         return $this->summary;
     }
 
-	public function hasContent() : bool
-	{
-		return !empty($this->content);
-	}
+    public function hasContent(): bool
+    {
+        return !empty($this->content);
+    }
 
-	public function hasSummary() : bool
-	{
-		return !empty($this->summary);
-	}
+    public function hasSummary(): bool
+    {
+        return !empty($this->summary);
+    }
 
     public function getTags(): array
     {
@@ -153,12 +153,12 @@ class Article extends Dated
         $str .= '<time datetime="'.date('Y-m-d\TH:i:s', $this->getCreationTime()).'" pubdate>'.strftime('Le %e %b %G à %kh%M', $this->getCreationTime()).'</time>';
         $str .= '<h1><a href="article/'.$this->getId().'" title="'.$this->getTitle().'">'.$this->getName().'</a></h1>';
 
-		if($this->hasSummary())
-			$text = $this->getSummary();
-		else {
-			$text = $this->getContent();
-			if(strlen($text) > 310)
-        		$text = substr($text, 0, 300) . '…';
+        if($this->hasSummary())
+            $text = $this->getSummary();
+        else {
+            $text = $this->getContent();
+            if(strlen($text) > 310)
+                $text = substr($text, 0, 300).'…';
         }
 
         $str .= '<p>'.$text.'</p>';
