@@ -32,6 +32,7 @@ $transit->layout = function ($transit) {
 <meta name="msapplication-TileImage" content="style/favicon-144.png">
 <link rel="apple-touch-icon" href="style/favicon-152.png">
 <link rel="stylesheet" type="text/css" href="style/reset.min.css" />
+<link rel="stylesheet" type="text/css" href="style/style.combined.css" />
 <?php $transit->printStyles() ?>
 <!--[if lt IE 9]><script type="text/javascript" src="script/html5shiv.min.js"></script><![endif]-->
 <?php $transit->printScripts() ?>
