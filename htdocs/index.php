@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 set_include_path(__DIR__.'/../config');
 require 'default.php';
 
+Utils\Sessions::start();
 $transit = new Core\FrontController();
 
 $transit->addRouter(new Core\PathRouter(PRESENTERS, VIEWS));
