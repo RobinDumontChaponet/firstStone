@@ -2,7 +2,14 @@
 	"name": "firstStone",
 	"description": "",
 	"type": "project",
-	"authors": [],
+	"authors": [
+		{
+			"name": "Robin Dumont-Chaponet",
+			"email": "src@dumontchapo.net",
+			"homepage": "https://robin.dumontchapo.net",
+			"role": "Developer"
+		}
+	],
 	"require": {
 		"php": "^7.0",
 		"transitive/project":">=1.0 <2.0"
