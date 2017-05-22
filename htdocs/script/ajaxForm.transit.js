@@ -3,7 +3,7 @@ function form2args (elements) {
 	for(var i=0, l=elements.length; i<l; i++) {
 		var el=elements[i];
 		if (el.name) {
-			if (el.tagName.toLowerCase() == 'select')
+			if (el.tagName.toLowerCase() == 'select' && typeof el.options[el.selectedIndex] !== 'undefined')
 				args+= '&'+el.name+'=' + el.options[el.selectedIndex].value;
 			else if (el.tagName.toLowerCase()=='input' && el.type=='checkbox')
 				if(el.checked)
@@ -20,13 +20,9 @@ function form2args (elements) {
 AjaxForm = function (form, callback, callfirst) {
 	var that = this;
 
-	function defaultCallfirst (that) {
-		console.log('callfirst here !', that);
-	}
+	function defaultCallfirst () {}
 
-	function defaultCallback (response) {
-		console.log('callback here !', response);
-	}
+	function defaultCallback (response) {}
 
 	this.form      = form;
 	this.callfirst = typeof callfirst!=='undefined' ? callfirst:defaultCallfirst;
@@ -39,7 +35,7 @@ AjaxForm = function (form, callback, callfirst) {
 		that.post(evt);
 		return false;
 	});
-}
+};
 AjaxForm.prototype.post = function (evt) {
 	if(this.xhr) {
 		if(evt)
@@ -50,28 +46,45 @@ AjaxForm.prototype.post = function (evt) {
 			params = form2args(this.form.elements);
 
 			var callfirst = this.callfirst();
-			params += (callfirst!=='' ) ? ((params==='') ? '?':'')+'&'+callfirst:'';
+			params += (callfirst!=='' ) ? ((params==='') ? '?':'&')+callfirst:'';
+
+			if(!this.form.action)
+				this.form.action = window.location.href;
+
+			if(!this.form.method)
+				this.form.method = 'post';
 
 			this.xhr.open(this.form.method, this.form.action+((this.form.method=='get')?((params.lastIndexOf('?')==-1)?'?':'&')+params:''), true);
 			this.xhr.setRequestHeader("Cache-Control", "no-cache");
 			this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			this.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			this.xhr.setRequestHeader("Accept", "application/json");
 			this.xhr.onreadystatechange = function () {
-				if(this.readyState  == 4)
+				if(this.readyState  == 4) {
+					console.log(this.responseText);
 					try {
-						that.callback(JSON.parse(this.responseText));
+						var response;
+						if(this.responseText)
+							response = JSON.parse(this.responseText);
+
+						if(that.callback)
+							that.callback(response);
 						if(that.status == 205) // http 205 : Reset Content
-							that.form.reset();
+							that.reset();
 					} catch(e) {
-						alert('An error occured. Sorry for the inconvenience. ;-) (xhr.status = '+this.status+'  (http status))');
+						new Note(e + ' (ajaxForm) Error : xhr.status '+this.status + ' (' + this.statusText +')', 3000, 'error');
 					}
+				}
 			};
 
 			this.xhr.send((this.form.method=='post')?params:null);
 
 		} else setTimeout(this.get, 500);
-	} else if(this.xhr == null)
+	} else if(this.xhr === null)
 		alert('An error occured. Sorry for the inconvenience. ;-) (xhr = null)');
 
 	return false;
+};
+AjaxForm.prototype.reset = function () {
+	this.form.reset();
 }

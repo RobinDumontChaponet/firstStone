@@ -1,14 +1,5 @@
 // UTILs - TRANSIT.js - r-dc_ 2010
 
-
-function encode_utf8(s) {
-	return unescape(encodeURIComponent(s));
-}
-
-function decode_utf8(s) {
-	return decodeURIComponent(escape(s));
-}
-
 /*
 var Observable = function() {
     this.subscribers = [];
