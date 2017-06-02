@@ -59,24 +59,22 @@ function getCaretPosition(areaElement) {
 	return 0;
 }
 
-
-// https://remysharp.com/2010/07/21/throttling-function-calls#comment-497362
+//https://remysharp.com/2010/07/21/throttling-function-calls#comment-1737112654
 function throttle(func, ms){
 	var timeout, last = 0;
-	return function(){
-		var args = arguments,
-			that = this,
+	return function() {
+		var a = arguments,
+			t = this,
 			now = +(new Date()),
-			execute = function() {
+			exe = function() {
 				last = now;
-				func.apply(that, args)
-			};
+				func.apply(t,a);
+			}
 		clearTimeout(timeout);
 		if(now >= last + ms)
-			execute();
+			exe();
 		else
-			timeout = setTimeout(execute, ms);
-		count++;
+			timeout = setTimeout(exe, ms);
 	}
 }
 
@@ -172,21 +170,80 @@ eventCancel = function (e) {
 	if (e.cancel !== null) e.cancel = true;
 }
 
-function addParam(url, param, value) {
-	var a = document.createElement('a'), regex = /[?&]([^=]+)=([^&]*)/g;
-	var match,
-	str = [];
-	a.href = url;
-	value=value||"";
-	while ((match = regex.exec(a.search)))
-		if (encodeURIComponent(param) != match[1])
-				str.push(match[1] + "=" + match[2]);
-	if(value!=='')
-				str.push(encodeURIComponent(param) + "=" + encodeURIComponent(value));
-			else
-				str.push(encodeURIComponent(param));
-	a.search = (a.search.substring(0,1) == "?" ? "" : "?") + str.join("&");
-	return a.href;
+//http://stackoverflow.com/a/10997390
+function updateURLParameter(url, param, paramVal)
+{
+    var TheAnchor = null;
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+
+    if (additionalURL)
+    {
+        var tmpAnchor = additionalURL.split("#");
+        var TheParams = tmpAnchor[0];
+            TheAnchor = tmpAnchor[1];
+        if(TheAnchor)
+            additionalURL = TheParams;
+
+        tempArray = additionalURL.split("&");
+
+        for (var i=0; i<tempArray.length; i++)
+        {
+            if(tempArray[i].split('=')[0] != param)
+            {
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }
+    }
+    else
+    {
+        var tmpAnchor = baseURL.split("#");
+        var TheParams = tmpAnchor[0];
+            TheAnchor  = tmpAnchor[1];
+
+        if(TheParams)
+            baseURL = TheParams;
+    }
+
+    if(TheAnchor)
+        paramVal += "#" + TheAnchor;
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+
+//http://stackoverflow.com/a/1917916
+function insertParam(key, value) {
+	var key = escape(key),
+		value = escape(value),
+		kvp = document.location.search.substr(1).split('&');
+
+	if (kvp === '')
+		document.location.search = '?' + key + '=' + value;
+	else {
+        var i = kvp.length,
+			x;
+
+        while (i--) {
+			x = kvp[i].split('=');
+
+			if (x[0] == key) {
+				x[1] = value;
+				kvp[i] = x.join('=');
+				break;
+			}
+		}
+
+		if (i < 0)
+			kvp[kvp.length] = [key, value].join('=');
+
+		//this will reload the page, it's likely better to store this until finished
+		document.location.search = kvp.join('&');
+	}
 }
 
 function utf8_encode(s) {

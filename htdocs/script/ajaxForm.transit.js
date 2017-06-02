@@ -3,9 +3,15 @@ function form2args (elements) {
 	for(var i=0, l=elements.length; i<l; i++) {
 		var el=elements[i];
 		if (el.name) {
-			if (el.tagName.toLowerCase() == 'select' && typeof el.options[el.selectedIndex] !== 'undefined')
-				args+= '&'+el.name+'=' + el.options[el.selectedIndex].value;
-			else if (el.tagName.toLowerCase()=='input' && el.type=='checkbox')
+			if(el.tagName.toLowerCase() == 'select' && typeof el.options[el.selectedIndex] !== 'undefined') {
+				if(el.hasAttribute('multiple')) {
+					for(var j=0, m=el.options.length; j<m; j++) {
+						if(el.options[j].selected)
+							args+= '&'+el.name+'=' + el.options[j].value;
+					}
+				} else
+					args+= '&'+el.name+'=' + el.options[el.selectedIndex].value;
+			} else if (el.tagName.toLowerCase()=='input' && el.type=='checkbox')
 				if(el.checked)
 					args+= '&'+el.name+'=' + el.value;
 				else
@@ -46,6 +52,9 @@ AjaxForm.prototype.post = function (evt) {
 			params = form2args(this.form.elements);
 
 			var callfirst = this.callfirst();
+			if(callfirst===false)
+				return false;
+
 			params += (callfirst!=='' ) ? ((params==='') ? '?':'&')+callfirst:'';
 
 			if(!this.form.action)
@@ -61,11 +70,11 @@ AjaxForm.prototype.post = function (evt) {
 			this.xhr.setRequestHeader("Accept", "application/json");
 			this.xhr.onreadystatechange = function () {
 				if(this.readyState  == 4) {
-					console.log(this.responseText);
 					try {
 						var response;
-						if(this.responseText)
+						if(this.responseText) {
 							response = JSON.parse(this.responseText);
+						}
 
 						if(that.callback)
 							that.callback(response);
