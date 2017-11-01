@@ -27,6 +27,8 @@ $transit->layout = function ($transit) {
 <?php $transit->printMetas() ?>
 <?php $transit->printTitle('{{projectName}}') ?>
 <base href="<?php echo (constant('SELF') == null) ? '/' : constant('SELF').'/'; ?>" />
+<link rel="author" href="humans.txt"/>
+<link rel="start" href="/"/>
 <!--[if IE]><link rel="shortcut icon" href="style/favicon-32.ico"><![endif]-->
 <link rel="icon" href="style/favicon-96.png">
 <meta name="msapplication-TileColor" content="#FFF">

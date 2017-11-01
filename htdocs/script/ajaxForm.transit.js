@@ -69,6 +69,7 @@ AjaxForm.prototype.post = function (evt) {
 			this.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			this.xhr.setRequestHeader("Accept", "application/json");
 			this.xhr.onreadystatechange = function () {
+				//console.log(this.responseText);
 				if(this.readyState  == 4) {
 					try {
 						var response;
@@ -96,4 +97,9 @@ AjaxForm.prototype.post = function (evt) {
 };
 AjaxForm.prototype.reset = function () {
 	this.form.reset();
+}
+AjaxForm.prototype.submit = function () {
+	var submit = this.form.querySelector('input[type=submit]');
+	if(submit)
+		submit.click();
 }

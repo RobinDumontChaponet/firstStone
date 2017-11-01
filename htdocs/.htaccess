@@ -223,7 +223,7 @@ FileETag None
 
 	#### Generals
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^([A-Za-z0-9-\/]+)$ %{ENV:BASE}/index.php?request=$1 [L,QSA]
+	RewriteRule ^([A-zÀ-ÿ0-9-\/]+)$ %{ENV:BASE}/index.php?request=$1 [L,QSA]
 
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME}.php -f

@@ -5,7 +5,7 @@
 	if(DEBUG=='send') {
 		console.log = function(log) {
 			var http = new XMLHttpRequest(),
-			url = 'helpers/log.php',
+			url = 'console.log.php',
 			params = 'log=' + Date.now() + ' ' + escape(sanitize(log));
 			http.open('POST', url, true);
 			http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -30,5 +30,4 @@
 		}
 	} else if (!DEBUG)
 		console.log = function(){};
-
 })();
