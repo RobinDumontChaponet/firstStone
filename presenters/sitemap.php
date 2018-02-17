@@ -1,6 +1,5 @@
 <?php
 
-$routers = $binder->getRouters();
 $routes = array();
 
 foreach($binder->getRouters() as $router)

@@ -4,7 +4,6 @@ $view->setTitle('Sitemap');
 
 $view->content = function ($data) {
 ?>
-
 <main role="main">
 	<h1>routeMap/siteMap :</h1>
 	<ul>
@@ -13,6 +12,5 @@ $view->content = function ($data) {
     ?>
 	</ul>
 </main>
-
 <?php
 };

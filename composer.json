@@ -11,15 +11,14 @@
 		}
 	],
 	"require": {
-		"php": "^7.0",
-		"transitive/project":">=1.0 <2.0"
+		"php": "^7.1",
+		"transitive/project":">=2.0 <3.0",
+		"transitive/utils":">=0.9.7 <2.0"
 	},
 	"scripts": {
-		"setup": [
-			"Transitive\\Core\\Install\\ScriptHandler::setup",
+		"post-install-cmd": [
 			"Transitive\\Project\\Install\\ScriptHandler::setup",
-			"composer install -o --quiet"
-		],
-		"post-install-cmd": "@setup"
+			"@composer update --lock"
+		]
 	}
 }

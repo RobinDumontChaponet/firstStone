@@ -41,11 +41,11 @@ $view->content = function ($data) { ?>
 <main id="main" role="main">
 	<form action="" method="post" name="login-form">
 		<label for="user">Identifiant</label>
-		<input title="Votre identifiant" id="user" name="user" type="text" value="<?= $_POST['user'] ?? '' ?>" required autofocus placeholder="adresse email" />
+		<input title="Votre identifiant" id="user" name="user" type="text" value="<?= $_POST['user'] ?? ''; ?>" required autofocus placeholder="adresse email" />
 		<label for="password">Mot-de-passe</label>
 		<input title="Votre mot-de-passe" id="password" name="password" type="password" required />
-		<?= ($data['badInput']) ? '<p class="badpass">Identifiant et/ou mot-de-passe incorrect !</p>' : '' ?>
-		<input class="<?= ($data['badInput']) ? 'warning' : 'ok' ?>" name="submit" type="submit" value="Se connecter" title="C'est parti !" />
+		<?= ($data['badInput']) ? '<p class="badpass">Identifiant et/ou mot-de-passe incorrect !</p>' : ''; ?>
+		<input class="<?= ($data['badInput']) ? 'warning' : 'ok'; ?>" name="submit" type="submit" value="Se connecter" title="C'est parti !" />
 		<nav>
 			<a href="signin" title="Rejoignez nous !">S'inscrire</a><br /><a href="forgot" rel="forgot_password" title="Let's find it !">Mot-de-passe oublié ?</a>
 		</nav>

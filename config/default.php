@@ -6,7 +6,7 @@ namespace Transitive;
  * Architecture-related
  */
 define('ROOT_PATH', dirname(dirname(__FILE__)));
-define('SELF', (dirname($_SERVER['PHP_SELF']) == '/' ? '' : dirname($_SERVER['PHP_SELF'])));
+define('SELF', ('/' == dirname($_SERVER['PHP_SELF']) ? '' : dirname($_SERVER['PHP_SELF'])));
 define('PRESENTERS', ROOT_PATH.'/presenters/');
 define('MODELS', ROOT_PATH.'/models/');
 define('VIEWS', ROOT_PATH.'/views/');
