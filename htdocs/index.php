@@ -1,17 +1,23 @@
 <?php
 
-
-require_once __DIR__.'/../vendor/autoload.php';
-set_include_path(__DIR__.'/../config');
-require 'default.php';
-
-use Transitive\Core;
+use Transitive\Web;
+use Transitive\Routing;
+use Transitive\Routing\Route;
 use Transitive\Utils;
 
-Utils\Sessions::start();
-$front = new Core\WebFront();
-// $front->obClean = false;
+if((include __DIR__.'/../vendor/autoload.php') === false) {
+	echo 'Dependencies are not installed, please run `composer install` or `composer update`.';
+	exit(1);
+}
+require __DIR__.'/../config/default.php';
 
+$timed = Utils\Optimization::newTimer();
+
+$front = new Web\Front();
+
+$front->addRouter(new Routing\ListRouter([
+	'sitemap' => new Route(PRESENTERS.'sitemap.php', VIEWS.'sitemap.php', null, ['binder' => $front])
+]));
 /*
 $front->addRouter(new Core\ListRegexRouter([
     'articles/(?\'id\'\d*)'              => new Route(PRESENTERS.'article.php',         VIEWS.'article.php'),
@@ -20,15 +26,13 @@ $front->addRouter(new Core\ListRegexRouter([
     'tags/(?\'id\'\d*)'                  => new Route(PRESENTERS.'tag.php',             VIEWS.'tag.php'),
 ]));
 */
-$front->addRouter(new Core\ListRouter([
-    'sitemap' => new Core\Route(PRESENTERS.'sitemap.php', VIEWS.'sitemap.php', null, ['binder' => $front]),
-]));
-$front->addRouter(new Core\PathRouter(PRESENTERS, VIEWS));
+$front->addRouter(new Routing\PathRouter(PRESENTERS, VIEWS));
 
-$request = @$_GET['request'];
-$front->execute($request ?? 'index');
+// $front->obClean = false; // do not ob_get_clean to FrontController->obContent.
 
-$front->setLayoutContent(function ($data) use ($request) {
+$front->execute(@$_GET['request'] ?? 'index');
+
+$front->setLayoutContent(function ($data) {
 ?>
 
 <!DOCTYPE html>
