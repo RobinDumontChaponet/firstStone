@@ -14,6 +14,13 @@ define('PRIVATE_DATA', ROOT_PATH.'/data/');
 define('PUBLIC_DATA', SELF.'data/');
 
 /*
+ * Logs
+ */
+define('LOG', ROOT_PATH.'/log/');
+
+define('CHANGELOG', ROOT_PATH.'/CHANGELOG.md');
+
+/*
  * Database
  */
 // Utils\Database::addDatabase('data', new Utils\Database('dbName', 'dbUser', 'dbPassword')); // Add database configuration to pool. The connection is established only later when Database::getInstanceById is called.
